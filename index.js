@@ -56,6 +56,14 @@ module.exports = plugin.withOptions(
 			}
 		});
 
+		// Load all of the font families from the theme.json file.
+		if (Array.isArray(themejson.settings.typography.fontFamilies)) {
+			themejsonProps.fonts = {};
+			themejson.settings.typography.fontFamilies.forEach(function (family) {
+				themejsonProps.fonts[family.slug] = family.fontFamily.split(",")
+			});
+		}
+		
 		// Update the configuration.
 		return {
 			theme: {
@@ -65,6 +73,9 @@ module.exports = plugin.withOptions(
 					},
 					maxWidth: {
 						...themejsonProps.widths,
+					},
+					fontFamily: {
+						...themejsonProps.fonts,
 					},
 				},
 			},
