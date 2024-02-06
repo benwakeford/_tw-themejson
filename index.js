@@ -57,11 +57,13 @@ module.exports = plugin.withOptions(
 		});
 
 		// Load all of the font families from the theme.json file.
-		if (Array.isArray(themejson.settings.typography.fontFamilies)) {
-			themejsonProps.fonts = {};
-			themejson.settings.typography.fontFamilies.forEach(function (family) {
-				themejsonProps.fonts[family.slug] = family.fontFamily.split(",")
-			});
+		themejsonProps.fonts = {};
+		if (undefined !== themejson.settings.typography.fontFamilies) {
+			if (Array.isArray(themejson.settings.typography.fontFamilies)) {
+				themejson.settings.typography.fontFamilies.forEach(function (family) {
+					themejsonProps.fonts[family.slug] = family.fontFamily.split(",")
+				});
+			}
 		}
 		
 		// Update the configuration.
